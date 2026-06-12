@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.spinner-wrapper { display: flex; justify-content: center; padding: 32px; }
+.empty-msg { text-align: center; color: rgba(0,0,0,.54); margin-top: 24px; }
+mat-table { width: 100%; }

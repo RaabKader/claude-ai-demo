@@ -1,0 +1,22 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-toolbar color="primary">
+      <span>CRUD App</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>
+        <span matListItemTitle>{{ link.label }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar color="primary">
+      <span>Person / Address / Function Management</span>
+    </mat-toolbar>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

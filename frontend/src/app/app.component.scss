@@ -1,0 +1,21 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  padding: 24px;
+  flex: 1;
+}
+
+.active-link {
+  background: rgba(0, 0, 0, 0.08);
+}

@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Person' : 'New Person' }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <div class="row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="form.get('firstName')?.hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="form.get('lastName')?.hasError('required')">Required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email">
+    <mat-error *ngIf="form.get('email')?.hasError('required')">Required</mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email')">Invalid email</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Address</mat-label>
+    <mat-select formControlName="addressId">
+      <mat-option *ngFor="let addr of data.addresses" [value]="addr.id">
+        {{ addr.street }}, {{ addr.city }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('addressId')?.hasError('required')">Address is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Function</mat-label>
+    <mat-select formControlName="functionId">
+      <mat-option *ngFor="let fn of data.functions" [value]="fn.id">
+        {{ fn.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('functionId')?.hasError('required')">Function is required</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+</mat-dialog-actions>

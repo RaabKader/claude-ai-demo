@@ -1,0 +1,29 @@
+# Dependencies
+/node_modules
+
+# Build output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Angular cache
+/.angular/cache
+.sass-cache/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# IDEs / editors
+.idea/
+.vscode/
+*.launch
+
+# System
+.DS_Store
+Thumbs.db
+
+# Misc
+/.nx/cache
+/.nx/workspace-data

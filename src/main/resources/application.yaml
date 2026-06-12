@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: claude-ai-demo
+
+  # In-memory H2 DataSource
+  datasource:
+    url: jdbc:h2:mem:claudeaidemo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  # JPA / Hibernate — schema generated from entities on startup
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # H2 web console at /h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # Disable Vault for local development (enable and configure for production)
+  cloud:
+    vault:
+      enabled: false
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+# OpenAPI / Swagger UI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
