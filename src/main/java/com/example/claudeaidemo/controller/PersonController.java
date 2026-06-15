@@ -1,11 +1,16 @@
 package com.example.claudeaidemo.controller;
 
+import com.example.claudeaidemo.dto.PageResponse;
 import com.example.claudeaidemo.dto.PersonDto;
 import com.example.claudeaidemo.dto.PersonRequest;
+import com.example.claudeaidemo.dto.PersonSearchCriteria;
 import com.example.claudeaidemo.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +32,19 @@ public class PersonController {
     @Operation(summary = "Get all persons")
     public List<PersonDto> getAll() {
         return personService.findAll();
+    }
+
+    @PostMapping("/search")
+    @Operation(summary = "Search persons by criteria with pagination",
+            description = "Filters persons on any combination of fields (case-insensitive substring match) "
+                    + "and returns a paginated result. Use ?page=, ?size= and ?sort=field,(asc|desc) query params.")
+    public PageResponse<PersonDto> search(
+            @RequestBody(required = false) PersonSearchCriteria criteria,
+            @PageableDefault(size = 10, sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable) {
+        PersonSearchCriteria effective = criteria != null
+                ? criteria
+                : new PersonSearchCriteria(null, null, null, null, null, null, null, null, null);
+        return personService.search(effective, pageable);
     }
 
     @GetMapping("/{id}")
