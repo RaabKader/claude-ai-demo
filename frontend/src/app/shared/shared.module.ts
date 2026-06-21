@@ -15,12 +15,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 const MATERIAL_MODULES = [
   MatTableModule, MatButtonModule, MatIconModule, MatDialogModule,
   MatFormFieldModule, MatInputModule, MatSelectModule, MatSnackBarModule,
   MatToolbarModule, MatSidenavModule, MatListModule, MatProgressSpinnerModule,
-  MatCardModule, MatTooltipModule
+  MatCardModule, MatTooltipModule, MatPaginatorModule, MatSortModule
 ];
 
 @NgModule({

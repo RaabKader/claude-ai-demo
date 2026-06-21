@@ -1,0 +1,120 @@
+<div class="header">
+  <h2>Search Persons</h2>
+</div>
+
+<mat-card class="criteria-card">
+  <form [formGroup]="form" (ngSubmit)="onSearch()">
+    <div class="criteria-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Zip Code</mat-label>
+        <input matInput formControlName="zipCode">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Function</mat-label>
+        <input matInput formControlName="functionLabel">
+      </mat-form-field>
+    </div>
+
+    <div class="criteria-actions">
+      <button mat-stroked-button type="button" (click)="onClear()">
+        <mat-icon>clear</mat-icon> Clear
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>search</mat-icon> Search
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<div *ngIf="loading" class="spinner-wrapper">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="results" [hidden]="loading">
+  <table mat-table [dataSource]="persons" matSort (matSortChange)="onSortChange($event)" class="results-table">
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="address.city">City</th>
+      <td mat-cell *matCellDef="let row">{{ row.address?.city }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="address.country">Country</th>
+      <td mat-cell *matCellDef="let row">{{ row.address?.country }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="function">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="function.label">Function</th>
+      <td mat-cell *matCellDef="let row">{{ row.function?.label }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <p *ngIf="searched && persons.length === 0" class="empty-msg">No persons match your criteria.</p>
+
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPage($event)"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>

@@ -1,7 +1,9 @@
 package com.example.claudeaidemo.service;
 
+import com.example.claudeaidemo.dto.PageResponse;
 import com.example.claudeaidemo.dto.PersonDto;
 import com.example.claudeaidemo.dto.PersonRequest;
+import com.example.claudeaidemo.dto.PersonSearchCriteria;
 import com.example.claudeaidemo.entity.Address;
 import com.example.claudeaidemo.entity.JobFunction;
 import com.example.claudeaidemo.entity.Person;
@@ -10,6 +12,8 @@ import com.example.claudeaidemo.mapper.PersonMapper;
 import com.example.claudeaidemo.repository.AddressRepository;
 import com.example.claudeaidemo.repository.JobFunctionRepository;
 import com.example.claudeaidemo.repository.PersonRepository;
+import com.example.claudeaidemo.repository.PersonSpecifications;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +41,14 @@ public class PersonService {
     @Transactional(readOnly = true)
     public List<PersonDto> findAll() {
         return personRepository.findAll().stream().map(personMapper::toDto).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<PersonDto> search(PersonSearchCriteria criteria, Pageable pageable) {
+        return PageResponse.from(
+                personRepository.findAll(PersonSpecifications.matching(criteria), pageable)
+                        .map(personMapper::toDto)
+        );
     }
 
     @Transactional(readOnly = true)

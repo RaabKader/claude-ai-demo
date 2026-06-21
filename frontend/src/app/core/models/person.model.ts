@@ -19,3 +19,15 @@ export interface PersonRequest {
   addressId: number;
   functionId: number;
 }
+
+export interface PersonSearchCriteria {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  street?: string;
+  city?: string;
+  zipCode?: string;
+  country?: string;
+  functionLabel?: string;
+}
