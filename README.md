@@ -1,6 +1,6 @@
 # claude-ai-demo
 
-A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthropic Claude** models, paired with an **Angular 18** frontend. It ships a small Person / Address / JobFunction CRUD domain with criteria-based search and pagination, full observability (OpenTelemetry + Prometheus + Grafana LGTM), and OpenAPI docs.
+A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthropic Claude** models, paired with an **Angular 18** frontend. It ships a small Person / Address / JobFunction domain — full CRUD for persons (with criteria-based search and pagination) and read/create endpoints for addresses and job functions — full observability (OpenTelemetry + Prometheus + Grafana LGTM), and OpenAPI docs.
 
 ## Tech stack
 
@@ -78,7 +78,7 @@ The domain is exposed under `/api/v1`:
 - `PUT    /api/v1/persons/{id}` — update a person
 - `DELETE /api/v1/persons/{id}` — delete a person
 
-Analogous endpoints exist for `addresses` and `job-functions`.
+Addresses (`/api/v1/addresses`) and job functions (`/api/v1/functions`) expose `GET` (list and by-id) and `POST` endpoints.
 
 ## Project layout
 
