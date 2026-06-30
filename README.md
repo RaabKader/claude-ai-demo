@@ -1,6 +1,6 @@
 # claude-ai-demo
 
-A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthropic Claude** models, paired with an **Angular 18** frontend. It ships a small Person / Address / JobFunction domain — full CRUD for persons (with criteria-based search and pagination) and read/create endpoints for addresses and job functions — full observability (OpenTelemetry + Prometheus + Grafana LGTM), and OpenAPI docs.
+A Spring Boot 4 application paired with an **Angular 18** frontend. It ships a small Person / Address / JobFunction domain — full CRUD for persons (with criteria-based search and pagination) and read/create endpoints for addresses and job functions — and OpenAPI docs.
 
 ## Tech stack
 
@@ -8,10 +8,7 @@ A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthr
 |---|---|
 | Language / runtime | Java 25 |
 | Framework | Spring Boot 4.0.5 |
-| AI | Spring AI (`spring-ai-starter-model-anthropic`) |
 | Persistence | Spring Data JPA + in-memory H2 (`ddl-auto=create-drop`) |
-| Secrets | HashiCorp Vault (`spring-cloud-starter-vault-config`) — disabled by default locally |
-| Observability | OpenTelemetry, Micrometer/Prometheus, Actuator, Grafana LGTM (via Testcontainers) |
 | API docs | SpringDoc OpenAPI / Swagger UI |
 | Build | Maven (`./mvnw`) |
 | Frontend | Angular 18 + Angular Material |
@@ -19,8 +16,6 @@ A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthr
 ## Prerequisites
 
 - Java 25
-- Docker (for integration tests using Testcontainers)
-- An Anthropic API key (via Vault or the `SPRING_AI_ANTHROPIC_API_KEY` env var)
 - Node.js (for the Angular frontend)
 
 > No external database is required — H2 runs in-memory and is recreated on every startup.
@@ -32,20 +27,7 @@ A Spring Boot 4 application demonstrating **Spring AI** integration with **Anthr
 ./mvnw clean package -DskipTests  # Package without running tests
 ./mvnw spring-boot:run            # Run the application
 ./mvnw test                       # Run unit tests
-./mvnw verify                     # Run integration tests (requires Docker)
 ```
-
-By default Vault is disabled and OTLP export is off, so the app starts cleanly on its own.
-
-### Run with the full observability stack
-
-`TestClaudeAiDemoApplication` starts a `grafana/otel-lgtm` container (Loki, Grafana, Tempo, Mimir) and wires the OTLP exporters to it via `@ServiceConnection`:
-
-```bash
-./mvnw test -pl . -Dspring-boot.run.main-class=com.example.claudeaidemo.TestClaudeAiDemoApplication
-```
-
-(or run `TestClaudeAiDemoApplication` directly from your IDE).
 
 ## Frontend
 
@@ -64,8 +46,6 @@ npm start        # ng serve with proxy to the backend
 | `/swagger-ui.html` | Swagger UI |
 | `/api-docs` | OpenAPI JSON |
 | `/h2-console` | H2 database console |
-| `/actuator/health` | Health check |
-| `/actuator/prometheus` | Prometheus metrics |
 
 ## REST API
 

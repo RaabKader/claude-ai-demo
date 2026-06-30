@@ -40,7 +40,7 @@ public class PersonController {
                     + "and returns a paginated result. Use ?page=, ?size= and ?sort=field,(asc|desc) query params.")
     public PageResponse<PersonDto> search(
             @RequestBody(required = false) PersonSearchCriteria criteria,
-            @PageableDefault(size = 10, sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable) {
+            @PageableDefault(sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable) {
         PersonSearchCriteria effective = criteria != null
                 ? criteria
                 : new PersonSearchCriteria(null, null, null, null, null, null, null, null, null);
