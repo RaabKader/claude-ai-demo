@@ -47,7 +47,7 @@ public final class PersonSpecifications {
         };
     }
 
-    private static void like(List<Predicate> predicates,
+private static void like(List<Predicate> predicates,
                              jakarta.persistence.criteria.CriteriaBuilder cb,
                              jakarta.persistence.criteria.Expression<String> path,
                              String value) {

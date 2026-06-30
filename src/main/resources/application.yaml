@@ -25,54 +25,9 @@ spring:
       enabled: true
       path: /h2-console
 
-  # Disable Vault for local development (enable and configure for production)
-  cloud:
-    vault:
-      enabled: false
-
-# Actuator
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-  # OTLP push exporters target a collector at http://localhost:4318 by default.
-  # That collector (the Grafana LGTM stack) only runs via TestClaudeAiDemoApplication,
-  # so disable OTLP export by default to avoid "Connection refused" noise on a plain run.
-  # The 'observability' profile (see below) re-enables it for that launcher.
-  otlp:
-    metrics:
-      export:
-        enabled: false
-    tracing:
-      export:
-        enabled: false
-    logging:
-      export:
-        enabled: false
-
 # OpenAPI / Swagger UI
 springdoc:
   api-docs:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
-
----
-# Activated by TestClaudeAiDemoApplication, which starts the Grafana LGTM container
-# and wires the OTLP endpoints via @ServiceConnection.
-spring:
-  config:
-    activate:
-      on-profile: observability
-management:
-  otlp:
-    metrics:
-      export:
-        enabled: true
-    tracing:
-      export:
-        enabled: true
-    logging:
-      export:
-        enabled: true
